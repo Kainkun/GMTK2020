@@ -23,6 +23,7 @@ public class Thrower : MonoBehaviour
         }
         if(holding){
             target.position=transform.position+transform.forward;
+            target.LookAt(transform);
             if(Input.GetKeyUp(grabKey)){
                 toss();
             }

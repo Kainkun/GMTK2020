@@ -83,7 +83,7 @@ MonoBehaviour:
   grabRange: 1
   grabKey: 32
   holding: 0
-  throwForce: 10
+  throwForce: 30
 --- !u!1 &8346465118597539961
 GameObject:
   m_ObjectHideFlags: 0

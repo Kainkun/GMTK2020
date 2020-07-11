@@ -200,7 +200,7 @@ PrefabInstance:
     - target: {fileID: 5333459430981772458, guid: 1563844b9a742dd4aaa8d016cb5dfe98,
         type: 3}
       propertyPath: throwForce
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6408692409896834116, guid: 1563844b9a742dd4aaa8d016cb5dfe98,
         type: 3}
