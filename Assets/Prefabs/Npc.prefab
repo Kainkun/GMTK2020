@@ -45,7 +45,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -165,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 5101442897047766358}
-  sick: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  sick: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   healthy: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   infected: 0
 --- !u!54 &5017660819857411034
