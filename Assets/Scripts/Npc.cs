@@ -26,7 +26,8 @@ public class Npc : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce((movementGoal - rb.position).normalized * moveSpeed);
+        rb.velocity = (movementGoal - rb.position).normalized * moveSpeed;
+        //rb.AddForce((movementGoal - rb.position).normalized * moveSpeed);
     }
 
     IEnumerator HumanLoop()
