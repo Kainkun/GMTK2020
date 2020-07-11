@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 2f;
     Vector2 input;
-    Rigidbody2D rb;
+    NavMeshAgent navMeshAgent;
+    
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Start()
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        rb.MovePosition(rb.position + input * moveSpeed * Time.fixedDeltaTime);
+        Vector3 velocity = new Vector3(input.x, 0, input.y) * navMeshAgent.speed;
+        navMeshAgent.velocity = velocity;
     }
 }

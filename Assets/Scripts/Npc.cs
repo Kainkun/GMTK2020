@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Npc : MonoBehaviour
 {
-    Rigidbody2D rb;
-    Vector2 movementGoal;
-    public float moveSpeed = 0.15f;
+
+    public NavMeshAgent navMeshAgent;
+    
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Start()
@@ -26,8 +27,7 @@ public class Npc : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = (movementGoal - rb.position).normalized * moveSpeed;
-        //rb.AddForce((movementGoal - rb.position).normalized * moveSpeed);
+
     }
 
     IEnumerator HumanLoop()
@@ -41,14 +41,17 @@ public class Npc : MonoBehaviour
         }
     }
 
-    void GoToPosition(Vector2 position)
+    void GoToPosition(Vector3 position)
     {
-        movementGoal = position;
+        position.y = 0;
+        navMeshAgent.SetDestination(position);
     }
 
     void MoveRandomDirection(float maxDistance = 1)
     {
-        GoToPosition(rb.position + Random.insideUnitCircle * maxDistance);
+        Vector3 r = Random.insideUnitSphere;
+        r.y = 0;
+        GoToPosition(transform.position + r * maxDistance);
     }
 
 }
