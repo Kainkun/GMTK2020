@@ -34,8 +34,17 @@ public class Npc : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(Random.Range(1,5));
-            MoveRandomDirection(5);
+            if(Random.Range(0,10) != 0) //10% chance to 
+            {
+                yield return new WaitForSeconds(Random.Range(1, 5));
+                MoveRandomDirection(5);
+            }
+            else
+            {
+                yield return new WaitForSeconds(Random.Range(1, 5));
+                MoveRandomPosition(5);
+                yield return new WaitForSeconds(Random.Range(5, 10));
+            }
 
             yield return null;
         }
@@ -52,6 +61,12 @@ public class Npc : MonoBehaviour
         Vector3 r = Random.insideUnitSphere;
         r.y = 0;
         GoToPosition(transform.position + r * maxDistance);
+    }
+
+    void MoveRandomPosition(float maxDistance = 1)
+    {
+        Vector3 pos = Manager.RandomPositionInRect(Manager.playspace);
+        GoToPosition(pos);
     }
 
 }
