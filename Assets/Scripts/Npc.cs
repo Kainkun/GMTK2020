@@ -8,12 +8,16 @@ public class Npc : MonoBehaviour
 
     public NavMeshAgent navMeshAgent;
     public bool walkAround;
+    float startingSpeed;
+    float startingAcceleration;
     
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         walkAround = true;
+        startingSpeed = navMeshAgent.speed;
+        startingAcceleration = navMeshAgent.acceleration;
     }
 
     void Start()
@@ -58,8 +62,9 @@ public class Npc : MonoBehaviour
 
                 if (Random.Range(0, 10) != 0) //10% chance to 
                 {
-                    yield return new WaitForSeconds(Random.Range(1, 5));
+                    yield return new WaitForSeconds(Random.Range(0, 2));
                     MoveRandomDirection(5);
+                    yield return new WaitForSeconds(Random.Range(1, 5));
                 }
                 else
                 {
@@ -74,7 +79,7 @@ public class Npc : MonoBehaviour
         }
     }
 
-    void GoToPosition(Vector3 position)
+    public void GoToPosition(Vector3 position)
     {
         position.y = 0;
         navMeshAgent.SetDestination(position);
@@ -93,13 +98,29 @@ public class Npc : MonoBehaviour
         GoToPosition(pos);
     }
 
-    public void RunAwayFrom(Vector3 position, float distance)
+    public void RunAwayFrom(Vector3 position, float time)
+    {
+        StartCoroutine(RunAway(position, time));
+    }
+
+    IEnumerator RunAway(Vector3 position, float time)
     {
         walkAround = false;
         position.y = 0;
-        Vector3 spread = Random.insideUnitSphere * 1;
-        spread.y = 0;
-        GoToPosition((transform.position - position).normalized * distance + spread);
+        //Vector3 spread = Random.insideUnitSphere * 1;
+        //spread.y = 0;
+        GoToPosition((transform.position - position).normalized * 10);
+        GetComponent<Infection>().spriteRenderer.color = Color.blue;
+        Speed *= 3;
+        Acceleration *= 3;
+
+        yield return new WaitForSeconds(time);
+
+        walkAround = true;
+        GetComponent<Infection>().spriteRenderer.color = Color.white;
+        Speed = startingSpeed;
+        Acceleration = startingAcceleration;
+
     }
 
 }

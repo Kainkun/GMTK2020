@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fear : MonoBehaviour
 {
-    float fearRadius = 3;
+    float fearRadius = 5;
 
     void Start()
     {
@@ -27,10 +27,19 @@ public class Fear : MonoBehaviour
                 if(Vector2.Distance(playerPos, npcPos) < fearRadius)
                 {
                     Npc npcComp = npc.GetComponent<Npc>();
-                    npc.GetComponent<Infection>().spriteRenderer.color = Color.blue;
-                    npcComp.Speed = npcComp.Speed * 3;
-                    npcComp.Speed = npcComp.Acceleration * 3;
-                    npcComp.RunAwayFrom(transform.position, 5);
+                    npcComp.RunAwayFrom(transform.position, 2);
+                }
+            }
+            foreach (GameObject npc in Manager.instance.infectedNpcs)
+            {
+                Vector2 npcPos;
+                npcPos.x = npc.transform.position.x;
+                npcPos.y = npc.transform.position.z;
+
+                if (Vector2.Distance(playerPos, npcPos) < 10)
+                {
+                    Npc npcComp = npc.GetComponent<Npc>();
+                    npcComp.GoToPosition(transform.position);
                 }
             }
         }
