@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Fear : MonoBehaviour
 {
-    float fearRadius = 5;
 
     void Start()
     {
@@ -24,7 +23,7 @@ public class Fear : MonoBehaviour
                 npcPos.x = npc.transform.position.x;
                 npcPos.y = npc.transform.position.z;
 
-                if(Vector2.Distance(playerPos, npcPos) < fearRadius)
+                if(Vector2.Distance(playerPos, npcPos) < 10)
                 {
                     Npc npcComp = npc.GetComponent<Npc>();
                     npcComp.RunAwayFrom(transform.position, 2);
@@ -36,7 +35,7 @@ public class Fear : MonoBehaviour
                 npcPos.x = npc.transform.position.x;
                 npcPos.y = npc.transform.position.z;
 
-                if (Vector2.Distance(playerPos, npcPos) < 10)
+                if (Vector2.Distance(playerPos, npcPos) < 20)
                 {
                     Npc npcComp = npc.GetComponent<Npc>();
                     npcComp.GoToPosition(transform.position);

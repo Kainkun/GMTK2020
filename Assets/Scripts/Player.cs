@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     Vector2 input;
     NavMeshAgent navMeshAgent;
-    
+
 
     private void Awake()
     {
@@ -16,13 +16,14 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
 
     void Update()
     {
         GetInput();
+        GetClick();
         Movement();
     }
 
@@ -37,5 +38,20 @@ public class Player : MonoBehaviour
     {
         Vector3 velocity = new Vector3(input.x, 0, input.y) * navMeshAgent.speed;
         navMeshAgent.velocity = velocity;
+    }
+
+    void GetClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit) && hit.transform.GetComponent<Infection>())
+            {
+                if (hit.transform.GetComponent<Infection>().infected)
+                    hit.transform.GetComponent<Infection>().Explode();
+
+            }
+        }
     }
 }
