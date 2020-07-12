@@ -10,6 +10,10 @@ public class Thrower : MonoBehaviour
     Transform target;
     public float throwForce;
     public GameObject whiffParticles;
+
+    public float throwDuration;
+
+    public AudioSource player;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,10 +35,18 @@ public class Thrower : MonoBehaviour
         }
     }
     void toss(){
+        player.Play();
         target.GetComponent<Rigidbody>().AddForce((target.position-transform.position).normalized*throwForce,ForceMode.Impulse);
         target.GetComponent<NavMeshAgent>().isStopped=false;
         holding=false;
+        
+        StartCoroutine(trailToggle(target));
         target=null;
+    }
+    IEnumerator trailToggle(Transform flung){
+        flung.GetComponent<TrailRenderer>().emitting=true;
+        yield return new WaitForSeconds(throwDuration);
+        flung.GetComponent<TrailRenderer>().emitting=false;
     }
     void AttemptGrab(){
         
