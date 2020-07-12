@@ -15,9 +15,15 @@ public class Infection : MonoBehaviour
         Manager.MaxNpc++;
 
         if (infected)
+        {
             Manager.InfectedNpc++;
+            Manager.instance.infectedNpcs.Add(gameObject);
+        }
         else
+        {
             Manager.HealthyNpc++;
+            Manager.instance.healthyNpcs.Add(gameObject);
+        }
     }
 
     private void Start()
@@ -32,7 +38,9 @@ public class Infection : MonoBehaviour
         infected=true;
         spriteRenderer.sprite=sick;
         Manager.HealthyNpc--;
+        Manager.instance.healthyNpcs.Remove(gameObject);
         Manager.InfectedNpc++;
+        Manager.instance.infectedNpcs.Add(gameObject);
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -46,8 +54,14 @@ public class Infection : MonoBehaviour
     private void OnDestroy()
     {
         if (infected)
+        {
             Manager.InfectedNpc--;
+            Manager.instance.infectedNpcs.Remove(gameObject);
+        }
         else
+        {
             Manager.HealthyNpc--;
+            Manager.instance.healthyNpcs.Remove(gameObject);
+        }
     }
 }
