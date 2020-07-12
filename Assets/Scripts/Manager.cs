@@ -8,6 +8,7 @@ public class Manager : MonoBehaviour
     public static Manager instance;
     public static Rect playspace;
     public TextMeshProUGUI UiStats;
+    public GameObject UiWin;
 
     static int maxNpc, healthyNpc, infectedNpc, deadNpc;
 
@@ -91,5 +92,8 @@ public class Manager : MonoBehaviour
             $"Infected: {InfectedNpc}\n" +
             $"Dead: {DeadNpc}";
         Manager.instance.UiStats.SetText(stats);
+
+        if (Time.frameCount > 0 && healthyNpc == 0)
+            Manager.instance.UiWin.SetActive(true);
     }
 }
