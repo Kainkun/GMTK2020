@@ -4,14 +4,35 @@ using UnityEngine;
 
 public class Infection : MonoBehaviour
 {
-    public SpriteRenderer renderer;
+    public SpriteRenderer spriteRenderer;
     public Sprite sick;
     public Sprite healthy;
 
     public bool infected=false;
+
+    private void Awake()
+    {
+        Manager.MaxNpc++;
+
+        if (infected)
+            Manager.InfectedNpc++;
+        else
+            Manager.HealthyNpc++;
+    }
+
+    private void Start()
+    {
+
+    }
+
     public void Infect(){
+        if (infected)
+            return;
+
         infected=true;
-        renderer.sprite=sick;
+        spriteRenderer.sprite=sick;
+        Manager.HealthyNpc--;
+        Manager.InfectedNpc++;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -20,5 +41,13 @@ public class Infection : MonoBehaviour
                 Infect();
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (infected)
+            Manager.InfectedNpc--;
+        else
+            Manager.HealthyNpc--;
     }
 }

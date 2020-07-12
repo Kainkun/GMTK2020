@@ -17,6 +17,7 @@ public class Npc : MonoBehaviour
     void Start()
     {
         StartCoroutine(HumanLoop());
+
     }
 
 
