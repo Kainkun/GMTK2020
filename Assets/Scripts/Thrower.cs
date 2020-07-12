@@ -14,6 +14,7 @@ public class Thrower : MonoBehaviour
     public float throwDuration;
 
     public AudioSource player;
+    public AudioSource woosh;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,7 @@ public class Thrower : MonoBehaviour
             AttemptGrab();
         }
         if(holding){
-            target.position=Vector3.Lerp(target.position,transform.position+transform.forward,0.05f);
+            target.position=Vector3.MoveTowards(target.position,transform.position+transform.forward,8*Time.deltaTime);
             //target.LookAt(transform);
             if(Input.GetKeyUp(grabKey)){
                 toss();
@@ -36,6 +37,7 @@ public class Thrower : MonoBehaviour
     }
     void toss(){
         player.Play();
+        woosh.Play();
         target.GetComponent<Rigidbody>().AddForce((target.position-transform.position).normalized*throwForce,ForceMode.Impulse);
         target.GetComponent<NavMeshAgent>().isStopped=false;
         holding=false;
