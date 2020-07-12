@@ -64,6 +64,8 @@ public class Infection : MonoBehaviour
             Manager.HealthyNpc--;
             Manager.instance.healthyNpcs.Remove(gameObject);
         }
+
+        Manager.DeadNpc++;
     }
 
     public void Explode()
@@ -82,6 +84,32 @@ public class Infection : MonoBehaviour
                 npc.GetComponent<Infection>().Infect();
             }
         }
+
+/*        foreach (GameObject npc in Manager.instance.healthyNpcs)
+        {
+            Vector2 npcPos;
+            npcPos.x = npc.transform.position.x;
+            npcPos.y = npc.transform.position.z;
+
+            if (Vector2.Distance(myPos, npcPos) < 10)
+            {
+                Npc npcComp = npc.GetComponent<Npc>();
+                npcComp.RunAwayFrom(transform.position, 2);
+            }
+        }
+        foreach (GameObject npc in Manager.instance.infectedNpcs)
+        {
+            Vector2 npcPos;
+            npcPos.x = npc.transform.position.x;
+            npcPos.y = npc.transform.position.z;
+
+            if (Vector2.Distance(myPos, npcPos) < 20)
+            {
+                Npc npcComp = npc.GetComponent<Npc>();
+                npcComp.GoToPosition(transform.position);
+            }
+        }*/
+
         Destroy( Instantiate(explosion, transform.position, Quaternion.identity), 5);
         Destroy(gameObject);
     }
