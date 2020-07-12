@@ -199,9 +199,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5333459430981772458, guid: 1563844b9a742dd4aaa8d016cb5dfe98,
         type: 3}
-      propertyPath: throwForce
-      value: 30
-      objectReference: {fileID: 0}
+      propertyPath: whiffParticles
+      value: 
+      objectReference: {fileID: 8159373270709252086, guid: 90af2b6c43d8b6b4b8dfb887673b5fb1,
+        type: 3}
     - target: {fileID: 6408692409896834116, guid: 1563844b9a742dd4aaa8d016cb5dfe98,
         type: 3}
       propertyPath: m_Name
