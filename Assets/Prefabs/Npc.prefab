@@ -171,6 +171,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5101442897047766358}
   sick: {fileID: 21300000, guid: 0698b39c4b9f4a641b643b9ed2d06972, type: 3}
   healthy: {fileID: 21300000, guid: 2aa96c0316946c44b8a770ebf57584cc, type: 3}
+  explosion: {fileID: 3279964352764234450, guid: 8991eaa3b103a1b4fb4c1aaebb142aeb,
+    type: 3}
   infected: 0
 --- !u!54 &5017660819857411034
 Rigidbody:
