@@ -9,7 +9,10 @@ public class Npc : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public bool walkAround;
     
+    Vector3 movementDirection;
 
+    public float avoidanceStrength;
+    public float visionRadius;
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -29,9 +32,28 @@ public class Npc : MonoBehaviour
 
     void Update()
     {
-        
+        if(movementDirection!=Vector3.zero){
+            Collider[] nearCols=Physics.OverlapSphere(transform.position,visionRadius);
+            Vector3 total=Vector3.zero;
+            int count=0;
+            foreach (var item in nearCols)
+            {         
+                if(item!=GetComponent<Collider>()&&item.CompareTag("agent")){
+                    total -= (transform.position - item.transform.position)*(transform.position-item.transform.position).magnitude;
+                    count++;
+                }
+            }
+            if(count!=0){
+                movementDirection = Vector3.Lerp(movementDirection, -total, avoidanceStrength);
+                movementDirection.y=0;
+                movementDirection.Normalize();
+            }
+            navMeshAgent.SetDestination(transform.position+movementDirection);
+        }
     }
+    private void avoidOtherAgents(){
 
+    }
     private void FixedUpdate()
     {
 
@@ -84,13 +106,16 @@ public class Npc : MonoBehaviour
     {
         Vector3 r = Random.insideUnitSphere;
         r.y = 0;
-        GoToPosition(transform.position + r * maxDistance);
+        movementDirection=r.normalized;
     }
 
     void MoveRandomPosition(float maxDistance = 1)
     {
         Vector3 pos = Manager.RandomPositionInRect(Manager.playspace);
-        GoToPosition(pos);
+        Vector3 direction=(pos-transform.position);
+        direction.y=0;
+        direction.Normalize();
+        movementDirection=direction;
     }
 
     public void RunAwayFrom(Vector3 position, float distance)
