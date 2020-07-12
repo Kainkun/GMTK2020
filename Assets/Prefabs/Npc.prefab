@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 0}
+  walkAround: 0
 --- !u!195 &8963005030983779320
 NavMeshAgent:
   m_ObjectHideFlags: 0

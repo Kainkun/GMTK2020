@@ -11,6 +11,8 @@ public class Manager : MonoBehaviour
     public GameObject UiWin;
 
     static int maxNpc, healthyNpc, infectedNpc, deadNpc;
+    public List<GameObject> healthyNpcs;
+    public List<GameObject> infectedNpcs;
 
     public static int MaxNpc
     {
